@@ -1,0 +1,57 @@
+name: Expand ShopAssist source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/expand-source.yml"
+      - "ShopAssist_Source.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Expand source archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/shopassist-expanded
+          mkdir -p /tmp/shopassist-expanded
+          unzip -q ShopAssist_Source.zip -d /tmp/shopassist-expanded
+
+          # If the ZIP has exactly one top-level directory, copy its contents.
+          shopt -s dotglob nullglob
+          entries=(/tmp/shopassist-expanded/*)
+          if [ "${#entries[@]}" -eq 1 ] && [ -d "${entries[0]}" ]; then
+            src="${entries[0]}"
+          else
+            src="/tmp/shopassist-expanded"
+          fi
+
+          rsync -a \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '__MACOSX/' \
+            --exclude '.DS_Store' \
+            "$src"/ ./
+
+      - name: Commit expanded source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes to commit."
+          else
+            git commit -m "Expand ShopAssist source files"
+            git push
+          fi
