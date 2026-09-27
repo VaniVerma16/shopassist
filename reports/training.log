@@ -1,0 +1,63 @@
+{"epoch": 1, "loss": 1.4498147464406395, "validation_macro_f1": 0.9438147043677032}
+{"epoch": 2, "loss": 0.18109992300457836, "validation_macro_f1": 0.9748925092000704}
+{"epoch": 3, "loss": 0.07435395325946882, "validation_macro_f1": 0.9819246284941888}
+{"epoch": 4, "loss": 0.04447772442148226, "validation_macro_f1": 0.9857769989606244}
+{"epoch": 5, "loss": 0.03005492743589131, "validation_macro_f1": 0.9860852854850773}
+{"epoch": 6, "loss": 0.02516193114616453, "validation_macro_f1": 0.9876553328282776}
+{"epoch": 7, "loss": 0.019940722257552935, "validation_macro_f1": 0.9904478700239983}
+{"epoch": 8, "loss": 0.015233064062625703, "validation_macro_f1": 0.9879676880573892}
+{"epoch": 9, "loss": 0.011067991558835946, "validation_macro_f1": 0.9886627907872785}
+{"epoch": 10, "loss": 0.009752930950893985, "validation_macro_f1": 0.9895368300156056}
+{
+  "source_rows": 26872,
+  "deduplicated_rows": 23619,
+  "removed_rows": 3253,
+  "conflicting_normalized_texts": 0,
+  "train_samples": 20513,
+  "authored_supplement_samples": 3980,
+  "validation_samples": 3543,
+  "test_samples": 3543,
+  "vocabulary_size": 995,
+  "classes": 27,
+  "parameters": 140251,
+  "epochs_run": 10,
+  "selected_epoch": 7,
+  "training_seconds": 46.56,
+  "test_accuracy": 0.9912503528083545,
+  "macro_f1": 0.9897856088487921,
+  "accepted_coverage": 0.996330793113181,
+  "accepted_accuracy": 0.9934844192634561,
+  "threshold": 0.55,
+  "labels": [
+    "cancel_order",
+    "change_order",
+    "change_shipping_address",
+    "check_cancellation_fee",
+    "check_invoice",
+    "check_payment_methods",
+    "check_refund_policy",
+    "complaint",
+    "contact_customer_service",
+    "contact_human_agent",
+    "create_account",
+    "delete_account",
+    "delivery_options",
+    "delivery_period",
+    "edit_account",
+    "get_invoice",
+    "get_refund",
+    "newsletter_subscription",
+    "payment_issue",
+    "place_order",
+    "recover_password",
+    "registration_problems",
+    "review",
+    "set_up_shipping_address",
+    "switch_account",
+    "track_order",
+    "track_refund"
+  ],
+  "dataset_sha256": "7e582133146f208a9dcb84b8e6c9dd415fcd36d051c214de16bb9c0568376785",
+  "torch_version": "2.14.0+cpu",
+  "seed": 42
+}

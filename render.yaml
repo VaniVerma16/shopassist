@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: shopassist
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: DATABASE_PATH
+        value: /tmp/shopassist.sqlite3

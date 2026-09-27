@@ -1,0 +1,1313 @@
+{
+  "count": 40,
+  "accuracy": 0.6,
+  "coverage": 0.925,
+  "accepted_correct": 23,
+  "ood_count": 20,
+  "ood_rejected": 12,
+  "median_inference_ms": 1.084331499896507,
+  "results": [
+    {
+      "text": "Could you tell me where my parcel has got to?",
+      "expected": "track_order",
+      "intent": "track_order",
+      "confidence": 0.78513,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "track_order",
+          "confidence": 0.78513
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.19974
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 0.00766
+        }
+      ]
+    },
+    {
+      "text": "Has order 1042 left the warehouse yet?",
+      "expected": "track_order",
+      "intent": "change_shipping_address",
+      "confidence": 0.27977,
+      "accepted": false,
+      "known_ratio": 0.714,
+      "alternatives": [
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.27977
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.26261
+        },
+        {
+          "intent": "track_order",
+          "confidence": 0.15765
+        }
+      ]
+    },
+    {
+      "text": "I am waiting for my purchase to turn up",
+      "expected": "track_order",
+      "intent": "get_refund",
+      "confidence": 0.82509,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.82509
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.08078
+        },
+        {
+          "intent": "newsletter_subscription",
+          "confidence": 0.04966
+        }
+      ]
+    },
+    {
+      "text": "Any update on the package I ordered?",
+      "expected": "track_order",
+      "intent": "change_order",
+      "confidence": 0.6728,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "change_order",
+          "confidence": 0.6728
+        },
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.31899
+        },
+        {
+          "intent": "edit_account",
+          "confidence": 0.00526
+        }
+      ]
+    },
+    {
+      "text": "Please stop order 1041 from being sent",
+      "expected": "cancel_order",
+      "intent": "cancel_order",
+      "confidence": 0.91288,
+      "accepted": true,
+      "known_ratio": 0.857,
+      "alternatives": [
+        {
+          "intent": "cancel_order",
+          "confidence": 0.91288
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 0.02173
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.01708
+        }
+      ]
+    },
+    {
+      "text": "I changed my mind and do not need my purchase",
+      "expected": "cancel_order",
+      "intent": "cancel_order",
+      "confidence": 0.65253,
+      "accepted": true,
+      "known_ratio": 0.9,
+      "alternatives": [
+        {
+          "intent": "cancel_order",
+          "confidence": 0.65253
+        },
+        {
+          "intent": "change_order",
+          "confidence": 0.22308
+        },
+        {
+          "intent": "get_refund",
+          "confidence": 0.06111
+        }
+      ]
+    },
+    {
+      "text": "Can you undo the order I just placed?",
+      "expected": "cancel_order",
+      "intent": "delivery_options",
+      "confidence": 0.92756,
+      "accepted": true,
+      "known_ratio": 0.625,
+      "alternatives": [
+        {
+          "intent": "delivery_options",
+          "confidence": 0.92756
+        },
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.03784
+        },
+        {
+          "intent": "set_up_shipping_address",
+          "confidence": 0.02151
+        }
+      ]
+    },
+    {
+      "text": "Please cancel the backpack purchase",
+      "expected": "cancel_order",
+      "intent": "cancel_order",
+      "confidence": 0.55429,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "cancel_order",
+          "confidence": 0.55429
+        },
+        {
+          "intent": "change_order",
+          "confidence": 0.31421
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 0.0359
+        }
+      ]
+    },
+    {
+      "text": "These sneakers do not fit and I need to send them back",
+      "expected": "get_refund",
+      "intent": "delete_account",
+      "confidence": 0.83051,
+      "accepted": true,
+      "known_ratio": 0.833,
+      "alternatives": [
+        {
+          "intent": "delete_account",
+          "confidence": 0.83051
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.06699
+        },
+        {
+          "intent": "get_refund",
+          "confidence": 0.04768
+        }
+      ]
+    },
+    {
+      "text": "The wrong item was in the box and I would like a refund",
+      "expected": "get_refund",
+      "intent": "get_refund",
+      "confidence": 0.98399,
+      "accepted": true,
+      "known_ratio": 0.923,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.98399
+        },
+        {
+          "intent": "registration_problems",
+          "confidence": 0.01262
+        },
+        {
+          "intent": "payment_issue",
+          "confidence": 0.00102
+        }
+      ]
+    },
+    {
+      "text": "Please arrange a return for my purchase",
+      "expected": "get_refund",
+      "intent": "get_refund",
+      "confidence": 0.99998,
+      "accepted": true,
+      "known_ratio": 0.857,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.99998
+        },
+        {
+          "intent": "check_refund_policy",
+          "confidence": 1e-05
+        },
+        {
+          "intent": "review",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "text": "I would like to send order 1043 back for a refund",
+      "expected": "get_refund",
+      "intent": "get_refund",
+      "confidence": 0.99979,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.99979
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.0002
+        },
+        {
+          "intent": "check_refund_policy",
+          "confidence": 1e-05
+        }
+      ]
+    },
+    {
+      "text": "Can you tell me if the refund has gone through?",
+      "expected": "track_refund",
+      "intent": "track_refund",
+      "confidence": 0.99997,
+      "accepted": true,
+      "known_ratio": 0.9,
+      "alternatives": [
+        {
+          "intent": "track_refund",
+          "confidence": 0.99997
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 1e-05
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 1e-05
+        }
+      ]
+    },
+    {
+      "text": "I sent it back but still have not got my money",
+      "expected": "track_refund",
+      "intent": "get_refund",
+      "confidence": 0.98271,
+      "accepted": true,
+      "known_ratio": 0.909,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.98271
+        },
+        {
+          "intent": "cancel_order",
+          "confidence": 0.01128
+        },
+        {
+          "intent": "check_cancellation_fee",
+          "confidence": 0.00182
+        }
+      ]
+    },
+    {
+      "text": "Has the money for my return been sent yet?",
+      "expected": "track_refund",
+      "intent": "get_refund",
+      "confidence": 0.55806,
+      "accepted": true,
+      "known_ratio": 0.889,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.55806
+        },
+        {
+          "intent": "recover_password",
+          "confidence": 0.2977
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.08351
+        }
+      ]
+    },
+    {
+      "text": "Please give me an update on my refund",
+      "expected": "track_refund",
+      "intent": "edit_account",
+      "confidence": 0.87911,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "edit_account",
+          "confidence": 0.87911
+        },
+        {
+          "intent": "get_invoice",
+          "confidence": 0.07789
+        },
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.02794
+        }
+      ]
+    },
+    {
+      "text": "I moved house and need to update the delivery location",
+      "expected": "change_shipping_address",
+      "intent": "change_shipping_address",
+      "confidence": 0.99997,
+      "accepted": true,
+      "known_ratio": 0.8,
+      "alternatives": [
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.99997
+        },
+        {
+          "intent": "change_order",
+          "confidence": 2e-05
+        },
+        {
+          "intent": "edit_account",
+          "confidence": 1e-05
+        }
+      ]
+    },
+    {
+      "text": "Could you redirect my unshipped order to another address?",
+      "expected": "change_shipping_address",
+      "intent": "set_up_shipping_address",
+      "confidence": 0.99761,
+      "accepted": true,
+      "known_ratio": 0.778,
+      "alternatives": [
+        {
+          "intent": "set_up_shipping_address",
+          "confidence": 0.99761
+        },
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.00236
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 3e-05
+        }
+      ]
+    },
+    {
+      "text": "The shipping address on 1041 needs changing",
+      "expected": "change_shipping_address",
+      "intent": "change_shipping_address",
+      "confidence": 0.99944,
+      "accepted": true,
+      "known_ratio": 0.857,
+      "alternatives": [
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.99944
+        },
+        {
+          "intent": "edit_account",
+          "confidence": 0.00046
+        },
+        {
+          "intent": "change_order",
+          "confidence": 7e-05
+        }
+      ]
+    },
+    {
+      "text": "Please update where order 1041 will be delivered",
+      "expected": "change_shipping_address",
+      "intent": "change_shipping_address",
+      "confidence": 0.69722,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "change_shipping_address",
+          "confidence": 0.69722
+        },
+        {
+          "intent": "change_order",
+          "confidence": 0.23259
+        },
+        {
+          "intent": "track_order",
+          "confidence": 0.06971
+        }
+      ]
+    },
+    {
+      "text": "Could I have a copy of the receipt for 1042?",
+      "expected": "get_invoice",
+      "intent": "get_invoice",
+      "confidence": 0.99687,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "get_invoice",
+          "confidence": 0.99687
+        },
+        {
+          "intent": "check_invoice",
+          "confidence": 0.00282
+        },
+        {
+          "intent": "cancel_order",
+          "confidence": 0.0001
+        }
+      ]
+    },
+    {
+      "text": "Please provide the invoice for my last purchase",
+      "expected": "get_invoice",
+      "intent": "check_invoice",
+      "confidence": 0.62144,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "check_invoice",
+          "confidence": 0.62144
+        },
+        {
+          "intent": "get_invoice",
+          "confidence": 0.37635
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.00177
+        }
+      ]
+    },
+    {
+      "text": "I need my order receipt for my records",
+      "expected": "get_invoice",
+      "intent": "get_invoice",
+      "confidence": 0.55749,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "get_invoice",
+          "confidence": 0.55749
+        },
+        {
+          "intent": "cancel_order",
+          "confidence": 0.23777
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 0.14029
+        }
+      ]
+    },
+    {
+      "text": "Let me download the invoice for this purchase",
+      "expected": "get_invoice",
+      "intent": "get_invoice",
+      "confidence": 0.99937,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "get_invoice",
+          "confidence": 0.99937
+        },
+        {
+          "intent": "check_invoice",
+          "confidence": 0.0004
+        },
+        {
+          "intent": "get_refund",
+          "confidence": 0.0002
+        }
+      ]
+    },
+    {
+      "text": "How long is the window for returning an item?",
+      "expected": "check_refund_policy",
+      "intent": "delivery_period",
+      "confidence": 0.98479,
+      "accepted": true,
+      "known_ratio": 0.889,
+      "alternatives": [
+        {
+          "intent": "delivery_period",
+          "confidence": 0.98479
+        },
+        {
+          "intent": "get_refund",
+          "confidence": 0.01384
+        },
+        {
+          "intent": "review",
+          "confidence": 0.00072
+        }
+      ]
+    },
+    {
+      "text": "What conditions apply if I want a refund?",
+      "expected": "check_refund_policy",
+      "intent": "get_refund",
+      "confidence": 0.99699,
+      "accepted": true,
+      "known_ratio": 0.75,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.99699
+        },
+        {
+          "intent": "track_refund",
+          "confidence": 0.00202
+        },
+        {
+          "intent": "place_order",
+          "confidence": 0.0002
+        }
+      ]
+    },
+    {
+      "text": "Explain which purchases qualify for returns",
+      "expected": "check_refund_policy",
+      "intent": "delivery_period",
+      "confidence": 0.38762,
+      "accepted": false,
+      "known_ratio": 0.833,
+      "alternatives": [
+        {
+          "intent": "delivery_period",
+          "confidence": 0.38762
+        },
+        {
+          "intent": "check_refund_policy",
+          "confidence": 0.35651
+        },
+        {
+          "intent": "review",
+          "confidence": 0.23976
+        }
+      ]
+    },
+    {
+      "text": "What are the rules for sending products back?",
+      "expected": "check_refund_policy",
+      "intent": "check_refund_policy",
+      "confidence": 0.98702,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "check_refund_policy",
+          "confidence": 0.98702
+        },
+        {
+          "intent": "delivery_period",
+          "confidence": 0.01161
+        },
+        {
+          "intent": "review",
+          "confidence": 0.00094
+        }
+      ]
+    },
+    {
+      "text": "Is UPI one of your payment options?",
+      "expected": "check_payment_methods",
+      "intent": "check_payment_methods",
+      "confidence": 0.9987,
+      "accepted": true,
+      "known_ratio": 1.0,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.9987
+        },
+        {
+          "intent": "payment_issue",
+          "confidence": 0.00112
+        },
+        {
+          "intent": "place_order",
+          "confidence": 0.00013
+        }
+      ]
+    },
+    {
+      "text": "Which forms of payment can I use at checkout?",
+      "expected": "check_payment_methods",
+      "intent": "delivery_period",
+      "confidence": 0.89664,
+      "accepted": true,
+      "known_ratio": 0.889,
+      "alternatives": [
+        {
+          "intent": "delivery_period",
+          "confidence": 0.89664
+        },
+        {
+          "intent": "check_refund_policy",
+          "confidence": 0.0792
+        },
+        {
+          "intent": "get_refund",
+          "confidence": 0.00737
+        }
+      ]
+    },
+    {
+      "text": "Can I use a debit card to pay?",
+      "expected": "check_payment_methods",
+      "intent": "check_payment_methods",
+      "confidence": 0.97853,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.97853
+        },
+        {
+          "intent": "create_account",
+          "confidence": 0.01855
+        },
+        {
+          "intent": "switch_account",
+          "confidence": 0.00174
+        }
+      ]
+    },
+    {
+      "text": "Do you take credit cards?",
+      "expected": "check_payment_methods",
+      "intent": "check_payment_methods",
+      "confidence": 0.97692,
+      "accepted": true,
+      "known_ratio": 0.8,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.97692
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 0.02004
+        },
+        {
+          "intent": "switch_account",
+          "confidence": 0.00223
+        }
+      ]
+    },
+    {
+      "text": "My bank charged me but checkout said failed",
+      "expected": "payment_issue",
+      "intent": "registration_problems",
+      "confidence": 0.81281,
+      "accepted": true,
+      "known_ratio": 0.75,
+      "alternatives": [
+        {
+          "intent": "registration_problems",
+          "confidence": 0.81281
+        },
+        {
+          "intent": "create_account",
+          "confidence": 0.10127
+        },
+        {
+          "intent": "payment_issue",
+          "confidence": 0.05607
+        }
+      ]
+    },
+    {
+      "text": "I have been billed twice for one purchase",
+      "expected": "payment_issue",
+      "intent": "get_refund",
+      "confidence": 0.97413,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.97413
+        },
+        {
+          "intent": "cancel_order",
+          "confidence": 0.01149
+        },
+        {
+          "intent": "track_order",
+          "confidence": 0.00877
+        }
+      ]
+    },
+    {
+      "text": "Payment did not complete even though money left my account",
+      "expected": "payment_issue",
+      "intent": "payment_issue",
+      "confidence": 0.35375,
+      "accepted": false,
+      "known_ratio": 0.7,
+      "alternatives": [
+        {
+          "intent": "payment_issue",
+          "confidence": 0.35375
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 0.3302
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.17823
+        }
+      ]
+    },
+    {
+      "text": "The card payment keeps getting rejected",
+      "expected": "payment_issue",
+      "intent": "payment_issue",
+      "confidence": 0.90648,
+      "accepted": true,
+      "known_ratio": 0.833,
+      "alternatives": [
+        {
+          "intent": "payment_issue",
+          "confidence": 0.90648
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.05242
+        },
+        {
+          "intent": "complaint",
+          "confidence": 0.03676
+        }
+      ]
+    },
+    {
+      "text": "Could a real person take over this chat?",
+      "expected": "contact_human_agent",
+      "intent": "contact_human_agent",
+      "confidence": 0.98385,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.98385
+        },
+        {
+          "intent": "registration_problems",
+          "confidence": 0.01163
+        },
+        {
+          "intent": "contact_customer_service",
+          "confidence": 0.00333
+        }
+      ]
+    },
+    {
+      "text": "Please put me through to a support representative",
+      "expected": "contact_human_agent",
+      "intent": "contact_human_agent",
+      "confidence": 0.79239,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.79239
+        },
+        {
+          "intent": "contact_customer_service",
+          "confidence": 0.14086
+        },
+        {
+          "intent": "complaint",
+          "confidence": 0.05479
+        }
+      ]
+    },
+    {
+      "text": "I need to speak with someone rather than the bot",
+      "expected": "contact_human_agent",
+      "intent": "contact_human_agent",
+      "confidence": 0.9988,
+      "accepted": true,
+      "known_ratio": 0.8,
+      "alternatives": [
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.9988
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 0.0007
+        },
+        {
+          "intent": "registration_problems",
+          "confidence": 0.00023
+        }
+      ]
+    },
+    {
+      "text": "May I talk to a human support agent?",
+      "expected": "contact_human_agent",
+      "intent": "contact_human_agent",
+      "confidence": 0.99861,
+      "accepted": true,
+      "known_ratio": 0.875,
+      "alternatives": [
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.99861
+        },
+        {
+          "intent": "contact_customer_service",
+          "confidence": 0.00138
+        },
+        {
+          "intent": "payment_issue",
+          "confidence": 1e-05
+        }
+      ]
+    }
+  ],
+  "ood_results": [
+    {
+      "text": "What is the capital of India?",
+      "intent": "track_refund",
+      "confidence": 0.43553,
+      "accepted": false,
+      "known_ratio": 0.667,
+      "alternatives": [
+        {
+          "intent": "track_refund",
+          "confidence": 0.43553
+        },
+        {
+          "intent": "check_refund_policy",
+          "confidence": 0.27076
+        },
+        {
+          "intent": "contact_customer_service",
+          "confidence": 0.09377
+        }
+      ]
+    },
+    {
+      "text": "Write a poem about the moon",
+      "intent": "review",
+      "confidence": 0.98419,
+      "accepted": true,
+      "known_ratio": 0.667,
+      "alternatives": [
+        {
+          "intent": "review",
+          "confidence": 0.98419
+        },
+        {
+          "intent": "recover_password",
+          "confidence": 0.01336
+        },
+        {
+          "intent": "newsletter_subscription",
+          "confidence": 0.00112
+        }
+      ]
+    },
+    {
+      "text": "Explain binary search trees",
+      "intent": "set_up_shipping_address",
+      "confidence": 0.92227,
+      "accepted": false,
+      "known_ratio": 0.25,
+      "alternatives": [
+        {
+          "intent": "set_up_shipping_address",
+          "confidence": 0.92227
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 0.02204
+        },
+        {
+          "intent": "review",
+          "confidence": 0.02166
+        }
+      ]
+    },
+    {
+      "text": "Book a flight to Mumbai",
+      "intent": "check_payment_methods",
+      "confidence": 0.61606,
+      "accepted": false,
+      "known_ratio": 0.4,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.61606
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.22773
+        },
+        {
+          "intent": "place_order",
+          "confidence": 0.05982
+        }
+      ]
+    },
+    {
+      "text": "What will the weather be tomorrow?",
+      "intent": "check_cancellation_fee",
+      "confidence": 0.66597,
+      "accepted": true,
+      "known_ratio": 0.667,
+      "alternatives": [
+        {
+          "intent": "check_cancellation_fee",
+          "confidence": 0.66597
+        },
+        {
+          "intent": "check_invoice",
+          "confidence": 0.18943
+        },
+        {
+          "intent": "switch_account",
+          "confidence": 0.06797
+        }
+      ]
+    },
+    {
+      "text": "Who won the football match?",
+      "intent": "set_up_shipping_address",
+      "confidence": 0.58735,
+      "accepted": false,
+      "known_ratio": 0.2,
+      "alternatives": [
+        {
+          "intent": "set_up_shipping_address",
+          "confidence": 0.58735
+        },
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.14485
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 0.08102
+        }
+      ]
+    },
+    {
+      "text": "Translate hello to French",
+      "intent": "check_payment_methods",
+      "confidence": 0.3225,
+      "accepted": false,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.3225
+        },
+        {
+          "intent": "place_order",
+          "confidence": 0.24237
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.16284
+        }
+      ]
+    },
+    {
+      "text": "Recommend a film for tonight",
+      "intent": "review",
+      "confidence": 0.72443,
+      "accepted": false,
+      "known_ratio": 0.4,
+      "alternatives": [
+        {
+          "intent": "review",
+          "confidence": 0.72443
+        },
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.09042
+        },
+        {
+          "intent": "complaint",
+          "confidence": 0.06005
+        }
+      ]
+    },
+    {
+      "text": "How do I cook pasta?",
+      "intent": "place_order",
+      "confidence": 0.44082,
+      "accepted": false,
+      "known_ratio": 0.6,
+      "alternatives": [
+        {
+          "intent": "place_order",
+          "confidence": 0.44082
+        },
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.32813
+        },
+        {
+          "intent": "complaint",
+          "confidence": 0.04827
+        }
+      ]
+    },
+    {
+      "text": "My wifi is disconnected",
+      "intent": "set_up_shipping_address",
+      "confidence": 0.51371,
+      "accepted": false,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "set_up_shipping_address",
+          "confidence": 0.51371
+        },
+        {
+          "intent": "recover_password",
+          "confidence": 0.12759
+        },
+        {
+          "intent": "delivery_period",
+          "confidence": 0.064
+        }
+      ]
+    },
+    {
+      "text": "Can you help with my homework?",
+      "intent": "get_refund",
+      "confidence": 0.48326,
+      "accepted": false,
+      "known_ratio": 0.833,
+      "alternatives": [
+        {
+          "intent": "get_refund",
+          "confidence": 0.48326
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.17392
+        },
+        {
+          "intent": "delete_account",
+          "confidence": 0.16897
+        }
+      ]
+    },
+    {
+      "text": "Calculate the square root of 625",
+      "intent": "track_order",
+      "confidence": 0.55781,
+      "accepted": true,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "track_order",
+          "confidence": 0.55781
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 0.36476
+        },
+        {
+          "intent": "change_order",
+          "confidence": 0.03913
+        }
+      ]
+    },
+    {
+      "text": "Tell me a joke",
+      "intent": "complaint",
+      "confidence": 0.75542,
+      "accepted": true,
+      "known_ratio": 0.75,
+      "alternatives": [
+        {
+          "intent": "complaint",
+          "confidence": 0.75542
+        },
+        {
+          "intent": "create_account",
+          "confidence": 0.07818
+        },
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.03803
+        }
+      ]
+    },
+    {
+      "text": "What does photosynthesis mean?",
+      "intent": "check_payment_methods",
+      "confidence": 0.83083,
+      "accepted": true,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.83083
+        },
+        {
+          "intent": "switch_account",
+          "confidence": 0.08159
+        },
+        {
+          "intent": "newsletter_subscription",
+          "confidence": 0.01914
+        }
+      ]
+    },
+    {
+      "text": "Which laptop should I buy?",
+      "intent": "check_payment_methods",
+      "confidence": 0.67843,
+      "accepted": true,
+      "known_ratio": 0.8,
+      "alternatives": [
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.67843
+        },
+        {
+          "intent": "delivery_options",
+          "confidence": 0.23872
+        },
+        {
+          "intent": "place_order",
+          "confidence": 0.06717
+        }
+      ]
+    },
+    {
+      "text": "Order pizza for me",
+      "intent": "place_order",
+      "confidence": 0.71878,
+      "accepted": true,
+      "known_ratio": 0.75,
+      "alternatives": [
+        {
+          "intent": "place_order",
+          "confidence": 0.71878
+        },
+        {
+          "intent": "change_order",
+          "confidence": 0.12674
+        },
+        {
+          "intent": "get_refund",
+          "confidence": 0.05174
+        }
+      ]
+    },
+    {
+      "text": "What are the latest stock prices?",
+      "intent": "check_cancellation_fee",
+      "confidence": 0.31147,
+      "accepted": false,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "check_cancellation_fee",
+          "confidence": 0.31147
+        },
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.27835
+        },
+        {
+          "intent": "check_refund_policy",
+          "confidence": 0.18375
+        }
+      ]
+    },
+    {
+      "text": "Give me medical advice",
+      "intent": "contact_human_agent",
+      "confidence": 0.10489,
+      "accepted": false,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "contact_human_agent",
+          "confidence": 0.10489
+        },
+        {
+          "intent": "registration_problems",
+          "confidence": 0.0921
+        },
+        {
+          "intent": "edit_account",
+          "confidence": 0.07203
+        }
+      ]
+    },
+    {
+      "text": "Find a nearby hospital",
+      "intent": "set_up_shipping_address",
+      "confidence": 0.26496,
+      "accepted": false,
+      "known_ratio": 0.5,
+      "alternatives": [
+        {
+          "intent": "set_up_shipping_address",
+          "confidence": 0.26496
+        },
+        {
+          "intent": "check_payment_methods",
+          "confidence": 0.20222
+        },
+        {
+          "intent": "delivery_period",
+          "confidence": 0.13805
+        }
+      ]
+    },
+    {
+      "text": "Turn on the bedroom lights",
+      "intent": "edit_account",
+      "confidence": 0.90155,
+      "accepted": true,
+      "known_ratio": 0.6,
+      "alternatives": [
+        {
+          "intent": "edit_account",
+          "confidence": 0.90155
+        },
+        {
+          "intent": "switch_account",
+          "confidence": 0.04431
+        },
+        {
+          "intent": "recover_password",
+          "confidence": 0.0249
+        }
+      ]
+    }
+  ]
+}
