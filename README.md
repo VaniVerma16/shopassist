@@ -1,64 +1,201 @@
----
-title: ShopAssist
-sdk: docker
-app_port: 7860
----
+# ShopAssist
 
-# ShopAssist: Voice-Enabled Shopping Support
+Voice-enabled shopping-support assistant built with Flask, PyTorch, SQLite, and browser speech APIs.
 
-A runnable academic project with a trained PyTorch BiLSTM, 27 shopping-support intents, browser speech recognition, optional spoken replies and stateful order-support flows. **All orders, refunds and store policies are fictional.** No paid AI API key is needed.
+**Live application:** https://shopassist-dyrn.onrender.com/  
+**Source code:** https://github.com/VaniVerma16/shopassist
 
-## Run it locally
+ShopAssist accepts typed text or browser-transcribed English speech, classifies the request into one of 27 customer-support intents using a trained bidirectional LSTM, and executes controlled multi-turn order-support flows such as tracking, cancellation, returns, refund-status lookup, invoice retrieval, and shipping-address changes.
 
-Use **Python 3.12**. The trained model is already included; do not retrain just to run the app.
+> The included orders and transactions are fictional. The application is an academic/project demonstration and does not connect to a real commerce backend.
 
-macOS / Linux:
+## System architecture
 
-```sh
+```mermaid
+flowchart LR
+    U[User] -->|Typed text| UI[Web UI]
+    U -->|Speech| STT[Browser SpeechRecognition]
+    STT --> UI
+    UI --> API[Flask API]
+    API --> PRE[Tokenizer + Vocabulary Encoding]
+    PRE --> NN[BiLSTM Intent Classifier]
+    NN --> DM[Dialogue / Policy Engine]
+    DM --> DB[(SQLite Session + Order State)]
+    DB --> DM
+    DM --> API
+    API --> UI
+    UI -->|Optional browser TTS| U
+```
+
+The acoustic speech recognizer is provided by the browser. ShopAssist trains only the text intent classifier.
+
+## Core features
+
+- Voice input through `SpeechRecognition/webkitSpeechRecognition` with typed-chat fallback.
+- 27-intent PyTorch BiLSTM classifier.
+- Confidence, score-margin, and vocabulary-coverage rejection rules.
+- Stateful multi-turn flows for missing order IDs, return reasons, new addresses, and confirmations.
+- Session-isolated fictional order records stored in SQLite.
+- Deterministic confirmation and transaction logic rather than free-form LLM actions.
+- Idempotent request IDs for safe client retries.
+- Flask API, Gunicorn production server, Docker packaging, and Render deployment.
+- Automated functional tests plus a separate authored generalization challenge.
+
+## Dataset
+
+The intent classifier uses the **Bitext Customer Support 27K v11** dataset.
+
+- Source rows: **26,872**
+- Intent classes: **27**
+- After normalized deduplication: **23,619**
+- Removed duplicate rows: **3,253**
+- Conflicting normalized labels: **0**
+- Bitext split: **70% train / 15% validation / 15% test**, seed 42
+- Original Bitext training examples after split: **16,533**
+- Authored conversational supplement: **3,980**
+- Final training records: **20,513**
+- Validation records: **3,543**
+- Test records: **3,543**
+
+The Bitext data is synthetic/hybrid NLG data rather than real customer transcripts. `data/SOURCE.md` documents provenance, modifications, and licensing. The authored supplement is kept separate from the held-out Bitext validation and test text by normalized-overlap filtering.
+
+## Model architecture
+
+Input text is Unicode-normalized, lowercased, placeholder/number normalized, tokenized, mapped to a training-only vocabulary, and truncated to 40 tokens.
+
+| Layer | Configuration |
+|---|---|
+| Input vocabulary | 995 tokens including padding/unknown |
+| Embedding | 64 dimensions |
+| Recurrent encoder | 1-layer bidirectional LSTM |
+| Hidden width | 64 per direction |
+| Sequence representation | Concatenated forward/backward final states, 128-D |
+| Regularization | Dropout 0.30 |
+| Dense layer | 128 -> 64 + ReLU |
+| Regularization | Dropout 0.20 |
+| Output | 64 -> 27 intent logits |
+| Parameters | 140,251 |
+
+Prediction uses softmax scores. A request is accepted only when the top probability is at least **0.55**, the top-two score margin is at least **0.15**, and at least **50%** of input tokens are known to the vocabulary.
+
+## Training methodology
+
+Training is reproducible on CPU.
+
+- Optimizer: **AdamW**
+- Learning rate: **0.002**
+- Weight decay: **0.0001**
+- Loss: **multiclass cross-entropy**
+- Batch size: **128**
+- Gradient clipping: **1.0**
+- Random seed: **42**
+- Training run: **10 epochs**
+- Selected checkpoint: **epoch 7**, highest validation macro-F1
+- Recorded CPU training time: **46.56 s** in the build environment
+
+The vocabulary is fitted only on training data. Test-set metrics are computed after validation-based model and threshold selection.
+
+## Results
+
+Synthetic held-out results should be read together with the independently authored challenge because the source dataset contains templated/synthetic language.
+
+| Evaluation | Result |
+|---|---:|
+| Synthetic held-out test accuracy | **99.13%** |
+| Synthetic held-out macro-F1 | **0.9898** |
+| Accepted synthetic-test coverage | **99.63%** |
+| Accuracy among accepted synthetic-test predictions | **99.35%** |
+| Authored challenge accuracy, n=40 | **60.0%** |
+| Authored challenge coverage | **92.5%** |
+| Unrelated inputs rejected | **12 / 20** |
+| Median CPU inference on challenge | **1.08 ms** |
+| Functional API/state tests | **17 / 17 passed** |
+
+The large gap between the synthetic held-out score and the authored challenge is an important project result: the classifier performs very strongly on in-distribution Bitext-style text but generalizes less reliably to novel, short, or implicit phrasing. This is why the application uses rejection rules and deterministic dialogue handling instead of treating classifier confidence as infallible.
+
+Speech word-error rate and true end-to-end voice latency have not been reported as measured results; they require testing on a real microphone/browser/device.
+
+## Order-support flow
+
+The classifier predicts the user's support intent. The dialogue engine then combines that intent with current session state and order records.
+
+Supported transactional flows include:
+
+- Track an order
+- Cancel an eligible processing order
+- Request a return for an eligible delivered order
+- Check refund status
+- Retrieve a plain-text receipt
+- Change the shipping address of an unshipped order
+
+Mutating actions are proposed first and require explicit confirmation. The system does not execute real payments, purchases, emails, pickup requests, or human-agent transfers.
+
+## Repository layout
+
+```text
+shopassist/
+├── app.py                     # Flask API and session persistence
+├── engine.py                  # Dialogue-state and order-support policy
+├── model.py                   # Tokenization, BiLSTM, inference
+├── train.py                   # Reproducible training/evaluation
+├── evaluate_challenge.py      # Authored generalization/OOD challenge
+├── download_dataset.py
+├── models/
+│   ├── intent_bilstm.pt
+│   └── metadata.json
+├── data/
+│   ├── bitext_intents.jsonl
+│   ├── supplement.jsonl
+│   ├── train.jsonl
+│   ├── validation.jsonl
+│   ├── test.jsonl
+│   ├── SOURCE.md
+│   └── LICENSE.txt
+├── static/                    # Browser UI, speech recognition, TTS
+├── tests/                     # Functional application tests
+├── reports/                   # Metrics, predictions and project report
+├── Dockerfile
+├── render.yaml
+├── requirements.txt
+└── requirements-train.txt
+```
+
+## Run locally
+
+Use Python 3.12.
+
+### macOS / Linux
+
+```bash
+git clone https://github.com/VaniVerma16/shopassist.git
 cd shopassist
+
 python3.12 -m venv .venv
 source .venv/bin/activate
+python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python app.py
 ```
 
-Windows PowerShell:
+### Windows PowerShell
 
 ```powershell
+git clone https://github.com/VaniVerma16/shopassist.git
 cd shopassist
+
 py -3.12 -m venv .venv
+.venv\Scripts\python -m pip install --upgrade pip
 .venv\Scripts\python -m pip install -r requirements.txt
 .venv\Scripts\python app.py
 ```
 
-Open **http://localhost:7860** in Chrome. Allow microphone access, speak, review the transcript and send it. Typed chat also works. Installation downloads PyTorch and can take a few minutes. No GPU is required. The Windows launcher uses Python 3.12; the shell launcher uses whichever `python3` is installed, so confirm its version first.
+Open http://localhost:7860.
 
-## Five sample orders
-
-| Order | Starting state | Try |
-|---|---|---|
-| 1041 | Processing | Cancel, decline/confirm, or change its fictional address |
-| 1042 | Shipped | Track delivery or download demo receipt; cancellation is blocked |
-| 1043 | Delivered 3 days ago | Request a return, give a reason, confirm |
-| 1044 | Returned | Check an already-processing refund |
-| 1045 | Delivered 40 days ago | Check the expired return window |
-
-Dates are generated relative to the session's creation date. Each browser session gets separate orders. Reset demo requires a second click and restores only that session. Changes are persisted in SQLite within the running instance but may reset when a free host restarts.
-
-## Model and dataset
-
-- Bitext Customer Support v11: 26,872 rows, 27 intents. The original is synthetic/hybrid data, not real-user transcripts.
-- Normalized deduplication leaves 23,619 rows, split 70/15/15 with seed 42.
-- A separately marked authored training supplement improves short, natural shopping questions. Its normalized overlaps with validation/test data are excluded.
-- Model: word embedding (64) → bidirectional LSTM (64 units per direction) → dropout → Dense(64, ReLU) → dropout → Dense(27).
-- AdamW training, cross-entropy, gradient clipping and best validation macro-F1 checkpoint. A validation-selected threshold and fixed margin/vocabulary coverage checks request clarification for uncertain inputs.
-- A state machine uses the detected intent plus order IDs and follow-up answers. It requires confirmation before cancelling, changing an address or recording a return. These control replies are deterministic; they are not represented as separate trained intents.
-
-**Read reports/metrics.json and reports/challenge_results.json together.** The synthetic held-out score is high, but the smaller, differently phrased challenge shows substantially weaker generalization. Do not present synthetic test accuracy as real-user or speech accuracy. Unknown requests can still be misclassified confidently.
+The trained checkpoint is already included, so retraining is not required to run the application.
 
 ## Reproduce training and evaluation
 
-```sh
+```bash
 python -m pip install -r requirements-train.txt
 python data/augment.py
 python train.py
@@ -66,48 +203,45 @@ python evaluate_challenge.py
 python -m unittest discover -s tests -v
 ```
 
-Training runs on CPU. Splits, vocabulary, weights, logs, predictions and metrics are included. `download_dataset.py` is optional; use the included dataset snapshot for exact input reproduction. The vocabulary is fit only to the training data. The inference model is loaded with `weights_only=True`.
+Detailed measurements are stored in:
 
-## Deploy on Render
+- `reports/metrics.json`
+- `reports/challenge_results.json`
+- `reports/test_predictions.jsonl`
+- `reports/training_output.txt`
 
-1. Create a GitHub repository and upload the **contents** of this folder so Dockerfile is at the repository root. Include models/intent_bilstm.pt and models/metadata.json.
-2. In Render, create a **Web Service** from that repository. Choose **Docker**, then **Free** if available for your account.
-3. Use the provided Dockerfile and leave the Docker command override blank. Set the health-check path to `/health`.
-4. Add `SECRET_KEY` as a randomly generated secret and `COOKIE_SECURE=1`. Do not commit the secret. `DATABASE_PATH=/tmp/shopassist.sqlite3` is the default.
-5. Deploy, wait for Live, then test the public HTTPS URL on a device with a microphone.
+## API
 
-Alternatively, import the repository as a Render Blueprint using render.yaml; it generates SECRET_KEY and sets the other configuration. The service uses one Gunicorn worker and four threads to keep memory use moderate and ensure consistent session secrets. The Docker image is configured to respect Render's PORT variable.
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/` | GET | Web interface |
+| `/health` | GET | Deployment/model health |
+| `/api/session` | GET | Current fictional order/session state |
+| `/api/chat` | POST | Classify and process a support message |
+| `/api/reset` | POST | Reset only the current browser session |
+| `/api/invoice/<order_id>` | GET | Download fictional receipt |
 
-Render's free service may sleep after inactivity and lose local SQLite data when restarted. This is acceptable for disposable demo orders. Open the link before an evaluation and allow time for a cold start. No live URL is claimed until a deployment has actually succeeded.
+## Deployment
 
-Official references: https://render.com/docs/docker and https://render.com/docs/free
+The public application is deployed on Render using Docker and Gunicorn:
 
-## Alternative: Hugging Face Docker Space
+https://shopassist-dyrn.onrender.com/
 
-Create a public Docker Space and upload the application source plus model artifacts, Dockerfile and this README. The YAML header selects Docker and port 7860. The API serves the frontend itself. Use the direct app URL for microphone testing; embedded iframe permissions may differ. This route still needs a hosting account and an actual successful deployment.
+The repository includes `Dockerfile` and `render.yaml`. Render is configured with `/health` as the health-check route, an automatically generated `SECRET_KEY`, secure cookies, and a disposable SQLite path under `/tmp`.
 
-## Project layout
+On a free Render service, cold starts can delay the first request and local SQLite data can be reset when the instance restarts.
 
-- `app.py`, `wsgi.py`: Flask endpoints, per-session state, idempotent message handling and production entry point.
-- `engine.py`: order lookup, confirmation and multi-turn support policy.
-- `model.py`, `models/`: tokenization, BiLSTM and learned parameters.
-- `static/`: responsive interface, microphone transcript, chat and speech synthesis.
-- `data/`: attributed dataset projection, split records and authored supplement.
-- `train.py`, `evaluate_challenge.py`: reproducible experiments.
-- `tests/test_app.py`: functional checks using the actual trained classifier.
-- `reports/`: metrics, training history, per-example predictions, test output and report.
-- `Dockerfile`, `render.yaml`: external hosting configuration.
+## Privacy and limitations
 
-## Privacy and scope
-
-Use fictional details only. This is a public demonstration without customer authentication. Each signed session stores sample orders and up to 100 recent message requests/results for idempotent retries. Records expire after 24 hours of inactivity and are cleaned during subsequent requests. Reset clears the session's message records. Hosting logs may contain normal request metadata. Audio is handled by the browser's recognition provider, not uploaded to this Flask server. SpeechRecognition support varies; typed input is always available.
-
-This is not a generative LLM. Responses are controlled templates populated with demo data. Account registration, real checkout, human-agent transfer, newsletters and real payment processing are intentionally not connected; the app says so when those intents are detected. Return pickup and refund processing are simulated statuses.
-
-## Submission
-
-Submit the externally deployed URL, the source ZIP or repository, and reports/ShopAssist_Report.pdf. Complete reports/MANUAL_TESTS.md on your actual browser before claiming measured speech accuracy or end-to-end latency.
+- Audio is handled by the browser's speech-recognition provider; it is not sent to the Flask application as raw audio.
+- Browser speech-recognition support varies by browser/device.
+- There is no real user authentication or commerce backend.
+- SQLite state is intentionally disposable for this project.
+- The high synthetic test score should not be interpreted as real-world customer-support accuracy.
+- The authored challenge demonstrates remaining weaknesses on unfamiliar phrasing and out-of-domain detection.
 
 ## Licensing
 
-Original application code: MIT (LICENSE). Bitext-derived data: the separate license in data/LICENSE.txt; see data/SOURCE.md for attribution and modifications. Preserve both when redistributing.
+Application code is distributed under the repository's MIT `LICENSE`.
+
+Bitext-derived data remains subject to the separate license and attribution included in `data/LICENSE.txt` and `data/SOURCE.md`.
